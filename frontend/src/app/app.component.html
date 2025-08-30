@@ -1,0 +1,18 @@
+
+<div class="app-container">
+  <nav class="navbar" *ngIf="authService.isAuthenticated()">
+    <div class="nav-brand">
+      <h1>Leave Management System</h1>
+    </div>
+    <div class="nav-links">
+      <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+      <a routerLink="/leave-form" routerLinkActive="active">New Request</a>
+      <a routerLink="/leave-list" routerLinkActive="active">My Leaves</a>
+      <button class="btn btn-outline" (click)="logout()">Logout</button>
+    </div>
+  </nav>
+
+  <main class="main-content">
+    <router-outlet></router-outlet>
+  </main>
+</div>

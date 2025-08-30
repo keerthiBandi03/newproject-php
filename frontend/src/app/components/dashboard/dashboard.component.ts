@@ -6,31 +6,8 @@ import { Leave } from '../../models/leave.model';
 
 @Component({
   selector: 'app-dashboard',
-  template: `
-  <div class="dashboard">
-    <h2>Welcome, {{ employee?.firstName }} {{ employee?.lastName }}</h2>
-    <div class="leave-summary">
-      <h3>Leave Summary</h3>
-      <ul>
-        <li>Pending: {{ leaveCounts.pending }}</li>
-        <li>Approved: {{ leaveCounts.approved }}</li>
-        <li>Rejected: {{ leaveCounts.rejected }}</li>
-      </ul>
-    </div>
-  </div>
-  `,
-  styles: [`
-    .dashboard {
-      padding: 1rem;
-    }
-    .leave-summary ul {
-      list-style: none;
-      padding-left: 0;
-    }
-    .leave-summary li {
-      margin-bottom: 0.5rem;
-    }
-  `]
+  templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
   employee: Employee | null = null;

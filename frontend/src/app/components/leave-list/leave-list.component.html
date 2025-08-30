@@ -1,0 +1,66 @@
+
+<div class="leave-list-container">
+  <div class="header">
+    <h2>Leave Requests</h2>
+    <div class="actions">
+      <select [(ngModel)]="statusFilter" (change)="applyFilter()" class="filter-select">
+        <option value="">All Status</option>
+        <option value="pending">Pending</option>
+        <option value="approved">Approved</option>
+        <option value="rejected">Rejected</option>
+      </select>
+      <button class="btn btn-primary" routerLink="/leave-form">
+        New Request
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="filteredLeaves.length === 0" class="no-data">
+    No leave requests found.
+  </div>
+
+  <div class="leave-table" *ngIf="filteredLeaves.length > 0">
+    <div class="table-header">
+      <div class="col-employee">Employee</div>
+      <div class="col-type">Type</div>
+      <div class="col-dates">Dates</div>
+      <div class="col-days">Days</div>
+      <div class="col-reason">Reason</div>
+      <div class="col-status">Status</div>
+      <div class="col-actions" *ngIf="isManager">Actions</div>
+    </div>
+
+    <div class="table-row" *ngFor="let leave of filteredLeaves">
+      <div class="col-employee">
+        <strong>{{ leave.employeeName }}</strong>
+        <small>{{ leave.employeeId }}</small>
+      </div>
+      <div class="col-type">{{ leave.type }}</div>
+      <div class="col-dates">
+        <div>{{ leave.startDate }}</div>
+        <div>{{ leave.endDate }}</div>
+      </div>
+      <div class="col-days">{{ leave.days }}</div>
+      <div class="col-reason">{{ leave.reason }}</div>
+      <div class="col-status">
+        <span class="status-badge" [class]="'status-' + leave.status">
+          {{ leave.status }}
+        </span>
+      </div>
+      <div class="col-actions" *ngIf="isManager && leave.status === 'pending'">
+        <button
+          class="btn btn-sm btn-success"
+          (click)="updateStatus(leave.id, 'approved')"
+        >
+          Approve
+        </button>
+        <button
+          class="btn btn-sm btn-danger"
+          (click)="updateStatus(leave.id, 'rejected')"
+        >
+          Reject
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

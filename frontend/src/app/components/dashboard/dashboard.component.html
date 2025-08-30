@@ -1,0 +1,45 @@
+
+<div class="dashboard">
+  <div class="header">
+    <h2>Welcome, {{ employee?.firstName }} {{ employee?.lastName }}</h2>
+    <p class="employee-info">{{ employee?.position }} - {{ employee?.department }}</p>
+  </div>
+
+  <div class="stats-section">
+    <h3>Leave Statistics</h3>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <h4>Total Requests</h4>
+        <span class="stat-number">{{ leaves.length }}</span>
+      </div>
+      <div class="stat-card">
+        <h4>Approved</h4>
+        <span class="stat-number">{{ getLeavesByStatus('approved').length }}</span>
+      </div>
+      <div class="stat-card">
+        <h4>Pending</h4>
+        <span class="stat-number">{{ getLeavesByStatus('pending').length }}</span>
+      </div>
+      <div class="stat-card">
+        <h4>Rejected</h4>
+        <span class="stat-number">{{ getLeavesByStatus('rejected').length }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="recent-leaves">
+    <h3>Recent Leave Requests</h3>
+    <div *ngIf="leaves.length === 0" class="no-data">
+      No leave requests found.
+    </div>
+    <div *ngFor="let leave of leaves.slice(0, 5)" class="leave-item">
+      <div class="leave-info">
+        <span class="leave-dates">{{ leave.startDate }} - {{ leave.endDate }}</span>
+        <span class="leave-type">{{ leave.type }}</span>
+      </div>
+      <span class="leave-status" [class]="'status-' + leave.status">
+        {{ leave.status }}
+      </span>
+    </div>
+  </div>
+</div>

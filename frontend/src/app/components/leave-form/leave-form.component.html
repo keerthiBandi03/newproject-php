@@ -1,0 +1,107 @@
+
+<div class="leave-form-container">
+  <div class="form-card">
+    <h2>Submit Leave Request</h2>
+    <form (ngSubmit)="onSubmit()" #leaveForm="ngForm">
+      <div class="form-group">
+        <label for="type">Leave Type</label>
+        <select
+          id="type"
+          name="type"
+          [(ngModel)]="leave.type"
+          required
+          class="form-control"
+          [class.is-invalid]="type.invalid && type.touched"
+          #type="ngModel"
+        >
+          <option value="">Select leave type</option>
+          <option value="annual">Annual Leave</option>
+          <option value="sick">Sick Leave</option>
+          <option value="personal">Personal Leave</option>
+          <option value="emergency">Emergency Leave</option>
+        </select>
+        <div *ngIf="type.invalid && type.touched" class="invalid-feedback">
+          Please select a leave type
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="startDate">Start Date</label>
+        <input
+          type="date"
+          id="startDate"
+          name="startDate"
+          [(ngModel)]="leave.startDate"
+          required
+          class="form-control"
+          [class.is-invalid]="startDate.invalid && startDate.touched"
+          #startDate="ngModel"
+        >
+        <div *ngIf="startDate.invalid && startDate.touched" class="invalid-feedback">
+          Start date is required
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="endDate">End Date</label>
+        <input
+          type="date"
+          id="endDate"
+          name="endDate"
+          [(ngModel)]="leave.endDate"
+          required
+          class="form-control"
+          [class.is-invalid]="endDate.invalid && endDate.touched"
+          #endDate="ngModel"
+        >
+        <div *ngIf="endDate.invalid && endDate.touched" class="invalid-feedback">
+          End date is required
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="reason">Reason</label>
+        <textarea
+          id="reason"
+          name="reason"
+          [(ngModel)]="leave.reason"
+          required
+          rows="4"
+          class="form-control"
+          [class.is-invalid]="reason.invalid && reason.touched"
+          #reason="ngModel"
+          placeholder="Please provide a reason for your leave request"
+        ></textarea>
+        <div *ngIf="reason.invalid && reason.touched" class="invalid-feedback">
+          Reason is required
+        </div>
+      </div>
+
+      <div *ngIf="error" class="alert alert-danger">
+        {{ error }}
+      </div>
+
+      <div *ngIf="success" class="alert alert-success">
+        {{ success }}
+      </div>
+
+      <div class="form-actions">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          (click)="onCancel()"
+        >
+          Cancel
+        </button>
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="leaveForm.invalid || isLoading"
+        >
+          <span *ngIf="isLoading" class="spinner"></span>
+          {{ isLoading ? 'Submitting...' : 'Submit Request' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
