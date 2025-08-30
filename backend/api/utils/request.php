@@ -13,3 +13,15 @@ function sendJsonResponse($data, $statusCode = 200) {
     header('Content-Type: application/json');
     echo json_encode($data);
 }
+<?php
+
+function getJsonInput() {
+    $input = file_get_contents('php://input');
+    return json_decode($input, true) ?: [];
+}
+
+function sendJsonResponse($data, $statusCode = 200) {
+    http_response_code($statusCode);
+    header('Content-Type: application/json');
+    echo json_encode($data);
+}
