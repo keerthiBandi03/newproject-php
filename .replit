@@ -6,3 +6,19 @@ channel = "stable-25_05"
 
 [deployment]
 run = ["sh", "-c", "npx ng s"]
+
+[workflows]
+runButton = "Full Stack Development"
+
+[[workflows.workflow]]
+name = "Full Stack Development"
+author = 46297671
+mode = "parallel"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd backend/api && php -S 0.0.0.0:5000 -t public"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd frontend && npx ng serve --host 0.0.0.0 --port 4200"
