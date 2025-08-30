@@ -114,3 +114,119 @@ export class LeaveFormComponent {
     }
   }
 }
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { LeaveService } from '../../services/leave.service';
+import { Leave } from '../../models/leave.model';
+
+@Component({
+  selector: 'app-leave-form',
+  template: `
+    <div class="leave-form-container">
+      <h2>Submit Leave Request</h2>
+      
+      <form (ngSubmit)="onSubmit()" class="leave-form">
+        <div class="form-group">
+          <label for="startDate">Start Date:</label>
+          <input 
+            type="date" 
+            id="startDate"
+            [(ngModel)]="leave.startDate" 
+            name="startDate"
+            required
+            class="form-control">
+        </div>
+        
+        <div class="form-group">
+          <label for="endDate">End Date:</label>
+          <input 
+            type="date" 
+            id="endDate"
+            [(ngModel)]="leave.endDate" 
+            name="endDate"
+            required
+            class="form-control">
+        </div>
+        
+        <div class="form-group">
+          <label for="type">Leave Type:</label>
+          <select 
+            id="type"
+            [(ngModel)]="leave.type" 
+            name="type"
+            required
+            class="form-control">
+            <option value="">Select leave type</option>
+            <option value="annual">Annual Leave</option>
+            <option value="sick">Sick Leave</option>
+            <option value="personal">Personal Leave</option>
+            <option value="emergency">Emergency Leave</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label for="reason">Reason:</label>
+          <textarea 
+            id="reason"
+            [(ngModel)]="leave.reason" 
+            name="reason"
+            required
+            rows="4"
+            class="form-control"
+            placeholder="Please provide a reason for your leave request">
+          </textarea>
+        </div>
+        
+        <div class="form-actions">
+          <button type="submit" class="btn-primary" [disabled]="isSubmitting">
+            {{ isSubmitting ? 'Submitting...' : 'Submit Request' }}
+          </button>
+          <button type="button" (click)="goBack()" class="btn-secondary">Cancel</button>
+        </div>
+        
+        <div *ngIf="message" class="message" [class]="messageType">{{ message }}</div>
+      </form>
+    </div>
+  `
+})
+export class LeaveFormComponent {
+  leave: Partial<Leave> = {
+    startDate: '',
+    endDate: '',
+    type: '',
+    reason: ''
+  };
+  isSubmitting = false;
+  message = '';
+  messageType = '';
+
+  constructor(
+    private leaveService: LeaveService,
+    private router: Router
+  ) {}
+
+  onSubmit(): void {
+    this.isSubmitting = true;
+    this.message = '';
+
+    this.leaveService.submitLeave(this.leave as Leave).subscribe({
+      next: (response) => {
+        this.message = 'Leave request submitted successfully!';
+        this.messageType = 'success';
+        this.isSubmitting = false;
+        setTimeout(() => {
+          this.router.navigate(['/leaves']);
+        }, 2000);
+      },
+      error: (err) => {
+        this.message = 'Failed to submit leave request. Please try again.';
+        this.messageType = 'error';
+        this.isSubmitting = false;
+      }
+    });
+  }
+
+  goBack(): void {
+    this.router.navigate(['/leaves']);
+  }
+}

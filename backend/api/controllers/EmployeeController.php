@@ -16,20 +16,18 @@ class EmployeeController {
 
         $userId = $GLOBALS['user']['sub'] ?? null;
         if (!$userId) {
-            http_response_code(401);
-            echo json_encode(['message' => 'Unauthorized']);
+            sendJsonResponse(['message' => 'Unauthorized'], 401);
             return;
         }
 
         $employeeModel = new Employee($this->db);
         $employee = $employeeModel->findByUserId($userId);
         if (!$employee) {
-            http_response_code(404);
-            echo json_encode(['message' => 'Employee profile not found']);
+            sendJsonResponse(['message' => 'Employee profile not found'], 404);
             return;
         }
 
-        echo json_encode([
+        sendJsonResponse([
             'id' => $employee->id,
             'userId' => $employee->userId,
             'firstName' => $employee->firstName,

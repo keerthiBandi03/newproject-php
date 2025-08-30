@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { tap, mapTo, catchError } from 'rxjs/operators';
+import { tap, map, catchError } from 'rxjs/operators';
 import { User } from '../models/user.model';
 import { environment } from '../../environments/environment';
 
@@ -21,14 +21,10 @@ export class AuthService {
           localStorage.setItem(this.TOKEN_KEY, response.token);
           localStorage.setItem(this.USER_KEY, JSON.stringify(response.user));
         }),
-        mapTo({
-          ...credentials,
-          ...{ id: 0, email: '', roles: [] }
-        }),
+        map(response => response.user),
         catchError(() => {
           return of(null as any);
-        }),
-        mapTo(response => response.user)
+        })
       );
   }
 
