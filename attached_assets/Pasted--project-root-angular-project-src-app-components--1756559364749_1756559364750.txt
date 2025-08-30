@@ -1,0 +1,81 @@
+/project-root
+├── /angular-project
+│   ├── /src
+│   │   ├── /app
+│   │   │   ├── /components
+│   │   │   │   ├── /dashboard
+│   │   │   │   │   ├── dashboard.component.ts
+│   │   │   │   │   ├── dashboard.component.html
+│   │   │   │   │   └── dashboard.component.css
+│   │   │   │   ├── /leave-form
+│   │   │   │   │   ├── leave-form.component.ts
+│   │   │   │   │   ├── leave-form.component.html
+│   │   │   │   │   └── leave-form.component.css
+│   │   │   │   ├── /leave-list
+│   │   │   │   │   ├── leave-list.component.ts
+│   │   │   │   │   ├── leave-list.component.html
+│   │   │   │   │   └── leave-list.component.css
+│   │   │   │   ├── /login
+│   │   │   │   │   ├── login.component.ts
+│   │   │   │   │   ├── login.component.html
+│   │   │   │   │   └── login.component.css
+│   │   │   ├── /guards
+│   │   │   │   └── auth.guard.ts
+│   │   │   ├── /interceptors
+│   │   │   │   └── auth.interceptor.ts
+│   │   │   ├── /models
+│   │   │   │   ├── auth.interface.ts
+│   │   │   │   ├── employee.interface.ts
+│   │   │   │   ├── leave.interface.ts
+│   │   │   │   └── leave.model.ts
+│   │   │   ├── /services
+│   │   │   │   ├── auth.service.ts
+│   │   │   │   ├── employee.service.ts
+│   │   │   │   ├── leave.service.ts
+│   │   │   │   └── auth.service.ts
+│   │   │   ├── /shared
+│   │   │   │   └── constants.ts
+│   │   │   ├── app.component.ts
+│   │   │   ├── app.module.ts
+│   │   │   ├── app.routing.ts
+│   │   │   ├── app.config.ts
+│   │   │   ├── app.html
+│   │   │   └── app.scss
+│   │   ├── /assets
+│   │   ├── /environments
+│   │   │   └── environment.ts
+│   │   ├── /styles.css
+│   │   ├── index.html
+│   │   ├── main.ts
+│   │   ├── styles.css
+│   │   └── tsconfig.json
+│   ├── angular.json
+│   ├── package.json
+│   ├── tsconfig.app.json
+├── /php-backend
+│   ├── /api
+│   │   ├── auth.php           # Handles authentication logic (login, logout)
+│   │   ├── config.php         # Database and general config
+│   │   ├── dashboard.php      # Fetches dashboard data for HR/Admin
+│   │   ├── leaves.php         # Handles leave request submissions and queries
+│   │   └── employees.php      # Manages employee data (get, add, update)
+│   ├── /public
+│   │   ├── /index.php         # Entry point for frontend, routes to Angular
+│   ├── /src
+│   │   ├── /controllers
+│   │   │   ├── authController.php  # Controller for auth-related API
+│   │   │   ├── leaveController.php # Controller for leave API
+│   │   │   └── employeeController.php  # Controller for employee data
+│   │   ├── /models
+│   │   │   ├── leaveModel.php      # Model for leave requests
+│   │   │   ├── employeeModel.php   # Model for employee records
+│   │   │   └── userModel.php       # Model for user authentication
+│   │   ├── /utils
+│   │   │   └── db.php              # Database connection utility
+│   │   └── /config
+│   │       └── db_config.php       # Configuration for database connection
+│   ├── .gitignore
+│   ├── composer.json              # For PHP dependencies (e.g., Composer)
+│   └── README.md
+├── README.md
+└── .gitignore
